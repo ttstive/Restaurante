@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Clientes {
-
     private String nome;
     private String endereco;
     private String telefone;
@@ -13,8 +12,7 @@ public class Clientes {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
-
-        this.dados = new String[] { nome, endereco, telefone };
+        updateDados();
     }
 
     // Getters and setters
@@ -49,7 +47,7 @@ public class Clientes {
         this.dados = new String[] { nome, endereco, telefone };
     }
 
-    public void registrarCliente(){
+    public void registrarCliente() {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Digite seu nome >");
             nome = sc.nextLine();
@@ -63,9 +61,8 @@ public class Clientes {
 
     @Override
     public String toString() {
-    return     "O nome" + nome + "\n" +
-                "endereco" + endereco + "\n" +
-                "telefone" + telefone;
-
+        return "Nome: " + nome + "\n" +
+                "Endereco: " + endereco + "\n" +
+                "Telefone: " + telefone;
     }
 }
