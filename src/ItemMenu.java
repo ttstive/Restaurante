@@ -1,7 +1,7 @@
 public class ItemMenu {
-    private String nome;
+    private  String nome ;
     private String categoria;
-    private double preco;
+    private double preco ;
 
     public ItemMenu(String nome, String categoria, double preco) {
         this.nome = nome;
@@ -10,19 +10,19 @@ public class ItemMenu {
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public String getCategoria() {
-        return categoria;
+        return this.categoria;
     }
 
     public double getPreco() {
-        return preco;
+        return this.preco;
     }
 
     @Override
     public String toString() {
-        return "Nome: " + nome + "\nCategoria: " + categoria + "\nPreço: " + preco;
+        return nome + " | " + categoria + " | R$" + preco;
     }
 }

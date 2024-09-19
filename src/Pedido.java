@@ -1,98 +1,53 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pedido {
-    private String nomePedido;
-    private boolean status;
-    private double preco;
-    private int quantidade;
-    private String[] itensPedidos;
-    private static final Scanner scanner = new Scanner(System.in);
+     private List<ItemMenu> itensMenu;
+     private Clientes clientes;
+     private double total;
+     private String status;
 
-    public Pedido(String nomePedido, boolean status, double preco, int quantidade) {
-        this.nomePedido = nomePedido;
-        this.status = status;
-        this.preco = preco;
-        this.quantidade = quantidade;
-        updateItensPedidos();
-    }
+     public Pedido(){
+          this.itensMenu = new ArrayList<>();
+          this.total = 0.0; // começa zerado pois não tem pedido ainda
+          this.status = "Em aberto";
+     }
 
-    public String getNomePedido() {
-        return nomePedido;
-    }
+     // Adiciona um item ao pedido e atualiza o total
+     public void adicionarItem(ItemMenu item){
+          itensMenu.add(item);
+          total += item.getPreco(); // Soma o preço do item ao total
+     }
 
-    public void setNomePedido(String nomePedido) {
-        this.nomePedido = nomePedido;
-        updateItensPedidos();
-    }
+     // Mostra o item de índice i no pedido
+     public void mostraPedido(int i){
+          System.out.println(itensMenu.get(i));
+     }
 
-    public double getPreco() {
-        return preco;
-    }
+     // Calcula e retorna o total do pedido
+     public double calculaTotal(){
+          return total;
+     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
-        updateItensPedidos();
-    }
+     // Atualiza o status do pedido
+     public void atualizaStatusPedido(String novoStatus){
+          this.status = novoStatus;
+          System.out.println("Status atualizado para: " + this.status);
+     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
+     public double getTotal(){
+          return total;
+     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-        updateItensPedidos();
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-        updateItensPedidos();
-    }
-
-    private void updateItensPedidos() {
-        itensPedidos = new String[] {
-                nomePedido,
-                String.valueOf(status),
-                String.valueOf(preco),
-                String.valueOf(quantidade)
-        };
-    }
-
-    public void adicionarItem(String nome, double preco, int quantidade) {
-        this.nomePedido = nome;
-        this.preco = preco;
-        this.quantidade = quantidade;
-        updateItensPedidos();
-        System.out.println("Item adicionado ao pedido!");
-    }
-
-    public void atualizarQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-        updateItensPedidos();
-        System.out.println("Quantidade atualizada!");
-    }
-
-    public void removerQuantidade(int quantidade) {
-        this.quantidade = Math.max(0, this.quantidade - quantidade); // Não permite quantidade negativa
-        updateItensPedidos();
-        System.out.println("Quantidade removida!");
-    }
-
-    private void mostrarCardapio() {
-        // Para demonstração, isso está codificado; na prática, use dados da classe ItemMenu
-        System.out.println("Cardápio:");
-        System.out.println("1. Pizza - R$29.90");
-        System.out.println("2. Refrigerante - R$7.50");
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido: " + nomePedido + "\n" +
-                "Status: " + (status ? "Finalizado" : "Em andamento") + "\n" +
-                "Preço: R$" + preco + "\n" +
-                "Quantidade: " + quantidade;
-    }
+     @Override
+     public String toString() {
+          StringBuilder sb = new StringBuilder();
+          sb.append("Itens do Pedido:\n");
+          for (ItemMenu item : itensMenu) {
+               sb.append(item).append("\n");
+          }
+          sb.append("Total: R$").append(String.format("%.2f", total)).append("\n");
+          sb.append("Status do pedido: ").append(status);
+          return sb.toString();
+     }
 }
